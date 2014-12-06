@@ -119,11 +119,18 @@ public class Controls : MonoBehaviour {
 		// Fire
 		if (Input.GetAxis(fire) < 0 && fireTimer == 0 && transform.localScale.y > 1.5f) {
 			fireTimer = fireTime;
-			GameObject newSnowball = (GameObject)Object.Instantiate(snowball);
-			newSnowball.transform.localScale = transform.localScale/4;
-			newSnowball.transform.position = transform.position + transform.forward * 0.6f * transform.localScale.y + new Vector3(0, 0.3f, 0) * transform.localScale.y;
-			newSnowball.rigidbody.velocity = fireSpeed * transform.forward + new Vector3(0, 1, 0);
-			transform.localScale -= new Vector3(snowballCost, snowballCost, snowballCost);
+
+			if (holding != null) {
+				holding.rigidbody.isKinematic = false;
+				holding.rigidbody.velocity = fireSpeed * transform.forward + new Vector3(0, 1, 0) / 4;
+				holding = null;
+			} else {
+				GameObject newSnowball = (GameObject)Object.Instantiate(snowball);
+				newSnowball.transform.localScale = transform.localScale/4;
+				newSnowball.transform.position = transform.position + transform.forward * 0.6f * transform.localScale.y + new Vector3(0, 0.3f, 0) * transform.localScale.y;
+				newSnowball.rigidbody.velocity = fireSpeed * transform.forward + new Vector3(0, 1, 0);
+				transform.localScale -= new Vector3(snowballCost, snowballCost, snowballCost);
+			}
 		}
 
 		if (Input.GetKeyDown(KeyCode.Escape)) {
