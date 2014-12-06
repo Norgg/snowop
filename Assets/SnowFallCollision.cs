@@ -19,13 +19,16 @@ public class SnowFallCollision : MonoBehaviour {
 	void OnParticleCollision(GameObject other) {
 		other.particleSystem.GetCollisionEvents(gameObject, events);
 		foreach (ParticleSystem.CollisionEvent collision in events) {
-			Debug.Log (other.transform.position);
 			int mapX = Mathf.FloorToInt(((collision.intersection.x - terrain.transform.position.x) / terrain.terrainData.size.x) * terrain.terrainData.heightmapWidth);
 			int mapZ = Mathf.FloorToInt(((collision.intersection.z - terrain.transform.position.z) / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight);
-			float[,] heights = terrain.terrainData.GetHeights(mapX, mapZ, 1, 1);
-			if (heights[0,0] > 0.0f && heights[0,0] < 0.9f) {
-				heights[0,0] += 1f;
-				terrain.terrainData.SetHeights(mapX, mapZ, heights);
+			if (mapX >= 0 && mapX < terrain.terrainData.heightmapWidth && mapZ >= 0 && mapZ < terrain.terrainData.heightmapHeight) {
+				float[,] heights = terrain.terrainData.GetHeights(mapX, mapZ, 1, 1);
+				if (heights[0,0] < 0.5f) {
+					heights[0,0] = 0.5f;
+				} else if (heights[0,0] < 0.9f) {
+					heights[0,0] += 0.1f;
+					terrain.terrainData.SetHeights(mapX, mapZ, heights);
+				}
 			}
 		}
 	}

@@ -46,6 +46,8 @@ public class Controls : MonoBehaviour {
 			vel /= vel.magnitude;
 		}
 
+		vel /= Mathf.Pow(transform.localScale.y, 2);
+
 		if (vel.magnitude > 0.01f) {
 			vel *= speed;
 			//Vector3 rot = Quaternion.LookRotation(vel).eulerAngles;
@@ -58,7 +60,7 @@ public class Controls : MonoBehaviour {
 		}
 
 		// Fire
-		if (Input.GetAxis(fire) < 0 && fireTimer == 0 && transform.localScale.y > snowballCost*2) {
+		if (Input.GetAxis(fire) < 0 && fireTimer == 0 && transform.localScale.y > 1.5f) {
 			fireTimer = fireTime;
 			GameObject newSnowball = (GameObject)Object.Instantiate(snowball);
 			newSnowball.transform.localScale = transform.localScale/4;
@@ -77,25 +79,27 @@ public class Controls : MonoBehaviour {
 		transform.position = pos;*/
 
 		// Remove snow from terrain.
-		int mapX = Mathf.FloorToInt(((transform.position.x - terrain.transform.position.x) / terrain.terrainData.size.x) * terrain.terrainData.heightmapWidth);
-		int mapZ = Mathf.FloorToInt(((transform.position.z - terrain.transform.position.z) / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight);
+		int mapX = Mathf.FloorToInt(((transform.position.x - terrain.transform.position.x) / terrain.terrainData.size.x) * terrain.terrainData.heightmapWidth) - 1;
+		int mapZ = Mathf.FloorToInt(((transform.position.z - terrain.transform.position.z) / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight) - 1;
 
-		float[,] heights = terrain.terrainData.GetHeights(mapX, mapZ, 3, 3);
-		if (heights[1,1] >= 0.31f) {
-			heights[0,0] -= 0.02f;
-			heights[0,2] -= 0.02f;
-			heights[2,0] -= 0.02f;
-			heights[2,2] -= 0.02f;
+		if (mapX >= 0 && mapX < terrain.terrainData.heightmapWidth-2 && mapZ >= 0 && mapZ < terrain.terrainData.heightmapHeight-2) {
+			float[,] heights = terrain.terrainData.GetHeights(mapX, mapZ, 3, 3);
+			if (heights[1,1] >= 0.31f) {
+				heights[0,0] -= 0.02f;
+				heights[0,2] -= 0.02f;
+				heights[2,0] -= 0.02f;
+				heights[2,2] -= 0.02f;
 
-			heights[1,0] -= 0.05f;
-			heights[1,2] -= 0.05f;
-			heights[2,1] -= 0.05f;
-			heights[0,1] -= 0.05f;
+				heights[1,0] -= 0.05f;
+				heights[1,2] -= 0.05f;
+				heights[2,1] -= 0.05f;
+				heights[0,1] -= 0.05f;
 
-			heights[1,1] = 0.1f;
+				heights[1,1] = 0.1f;
 
-			terrain.terrainData.SetHeights(mapX, mapZ, heights);
-			transform.localScale += new Vector3(snowGain, snowGain, snowGain);
+				terrain.terrainData.SetHeights(mapX, mapZ, heights);
+				transform.localScale += new Vector3(snowGain, snowGain, snowGain);
+			}
 		}
 	}
 }

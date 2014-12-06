@@ -476,7 +476,7 @@ MonoBehaviour:
   horizontal: Horizontal1
   vertical: Vertical1
   fire: Fire1
-  speed: .5
+  speed: 3
   fireSpeed: 80
   fireTime: 10
   snowball: {fileID: 100000, guid: d0ca499c852dfa846872e79e117b6b21, type: 2}
@@ -609,7 +609,7 @@ MonoBehaviour:
   horizontal: Horizontal2
   vertical: Vertical2
   fire: Fire2
-  speed: .5
+  speed: 3
   fireSpeed: 80
   fireTime: 10
   snowball: {fileID: 100000, guid: d0ca499c852dfa846872e79e117b6b21, type: 2}
@@ -1008,7 +1008,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 100
+      scalar: 20
       maxCurve:
         serializedVersion: 2
         m_Curve:
