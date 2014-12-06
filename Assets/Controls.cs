@@ -8,6 +8,8 @@ public class Controls : MonoBehaviour {
 	public string fire;
 	public float speed = 0.1f;
 	public int fireTime = 30;
+	float snowballCost = 0.02f;
+	float snowGain = 0.01f;
 	int fireTimer = 0;
 	public GameObject snowball;
 	Terrain terrain;
@@ -54,9 +56,10 @@ public class Controls : MonoBehaviour {
 		if (Input.GetAxis(fire) < 0 && fireTimer == 0 && transform.localScale.y > 0.1) {
 			fireTimer = fireTime;
 			GameObject newSnowball = (GameObject)Object.Instantiate(snowball);
-			newSnowball.transform.position = transform.position + transform.forward * 0.5f + new Vector3(0, 1, 0);
+			newSnowball.transform.localScale = transform.localScale/4;
+			newSnowball.transform.position = transform.position + transform.forward * transform.localScale.y + new Vector3(0, 0.3f, 0);
 			newSnowball.rigidbody.velocity = 20 * transform.forward + new Vector3(0, 1, 0);
-			transform.localScale -= new Vector3(0.05f, 0.05f, 0.05f);
+			transform.localScale -= new Vector3(snowballCost, snowballCost, snowballCost);
 		}
 
 		if (Input.GetKeyDown(KeyCode.Escape)) {
@@ -76,7 +79,7 @@ public class Controls : MonoBehaviour {
 		if (heights[0,0] > 0.5f) {
 			heights[0,0] = 0.4f;
 			terrain.terrainData.SetHeights(mapX, mapZ, heights);
-			transform.localScale += new Vector3(0.005f, 0.005f, 0.005f);
+			transform.localScale += new Vector3(snowGain, snowGain, snowGain);
 		}
 	}
 }
