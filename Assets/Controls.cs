@@ -7,11 +7,24 @@ public class Controls : MonoBehaviour {
 	public string vertical = "Vertical1";
 	public string fire = "Fire1";
 	public float speed = 0.1f;
+	public GameObject snowball;
 	Terrain terrain;
 
 	// Use this for initialization
 	void Start () {
 		terrain = Terrain.activeTerrain;
+		// Duplicate terrain data so it doesn't mess with the editor version.
+		/*terrain.terrainData = (TerrainData) Object.Instantiate(terrain.terrainData);
+		TerrainCollider tc = Terrain.activeTerrain.gameObject.GetComponent<TerrainCollider>();
+		tc.terrainData = terrain.terrainData;*/
+
+		float[,] heights = terrain.terrainData.GetHeights(0, 0, terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight);
+		for (int i = 0; i < terrain.terrainData.heightmapWidth; i++) {
+			for (int j = 0; j < terrain.terrainData.heightmapHeight; j++) {
+				heights[i,j] = 1f;
+			}
+		}
+		terrain.terrainData.SetHeights(0, 0, heights);
 	}
 	
 	// Update is called once per frame
@@ -34,18 +47,20 @@ public class Controls : MonoBehaviour {
 		}
 
 		// Set position based on terrain height
-		Vector3 pos = transform.position;
+		/*Vector3 pos = transform.position;
 		pos.y = 0.5f + terrain.SampleHeight(transform.position);
-		transform.position = pos;
+		transform.position = pos;*/
 
 		// Remove snow from terrain.
-		float[,,] element = new float[1,1,2];
-		element[0,0,0] = 0;
-		element[0,0,1] = 1;
+		int mapX = Mathf.FloorToInt(((transform.position.x - terrain.transform.position.x) / terrain.terrainData.size.x) * terrain.terrainData.heightmapWidth);
+		int mapZ = Mathf.FloorToInt(((transform.position.z - terrain.transform.position.z) / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight);
 
-		int mapX = (int)((transform.position.x - terrain.transform.position.x) / terrain.terrainData.size.x) * terrain.terrainData.alphamapWidth;
-		int mapZ = (int)((transform.position.z - terrain.transform.position.z) / terrain.terrainData.size.z) * terrain.terrainData.alphamapHeight;
-
-		//terrain.terrainData.SetAlphamaps(mapX, mapZ, element);
+		float[,] heights = terrain.terrainData.GetHeights(mapX, mapZ, 3, 3);
+		heights[1,0] = 0.4f;
+		heights[1,1] = 0.4f;
+		heights[1,2] = 0.4f;
+		heights[0,1] = 0.4f;
+		heights[2,1] = 0.4f;
+		terrain.terrainData.SetHeights(mapX, mapZ, heights);
 	}
 }
