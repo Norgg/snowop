@@ -25,7 +25,7 @@ public class Controls : MonoBehaviour {
 		float[,] heights = terrain.terrainData.GetHeights(0, 0, terrain.terrainData.heightmapWidth, terrain.terrainData.heightmapHeight);
 		for (int i = 0; i < terrain.terrainData.heightmapWidth; i++) {
 			for (int j = 0; j < terrain.terrainData.heightmapHeight; j++) {
-				heights[i,j] = 1f;
+				heights[i,j] = 0.5f;
 			}
 		}
 		terrain.terrainData.SetHeights(0, 0, heights);
@@ -76,8 +76,8 @@ public class Controls : MonoBehaviour {
 		int mapZ = Mathf.FloorToInt(((transform.position.z - terrain.transform.position.z) / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight);
 
 		float[,] heights = terrain.terrainData.GetHeights(mapX, mapZ, 1, 1);
-		if (heights[0,0] > 0.5f) {
-			heights[0,0] = 0.4f;
+		if (heights[0,0] >= 0.5f) {
+			heights[0,0] = 0.3f;
 			terrain.terrainData.SetHeights(mapX, mapZ, heights);
 			transform.localScale += new Vector3(snowGain, snowGain, snowGain);
 		}
