@@ -10,17 +10,14 @@ public class Player1Controls : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 pos = transform.position;
 		float speed = 0.05f;
-		if (Input.GetKey(KeyCode.D)) {
-			pos.x += speed;
-		} else if (Input.GetKey(KeyCode.A)) {
-			pos.x -= speed;
-		} else if (Input.GetKey(KeyCode.S)) {
-			pos.z -= speed;
-		} else if (Input.GetKey(KeyCode.W)) {
-			pos.z += speed;
+		Vector3 vel = new Vector3(Input.GetAxisRaw("Horizontal1"), 0f, Input.GetAxisRaw("Vertical1"));
+
+		if (vel.magnitude > 0) {
+		    this.transform.position += vel.normalized * speed;
+
+			Vector3 rot = Quaternion.LookRotation(vel).eulerAngles;
+			iTween.RotateTo(gameObject, rot, 0.3f);
 		}
-		this.transform.position = pos;
 	}
 }
