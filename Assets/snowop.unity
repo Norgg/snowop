@@ -399,6 +399,7 @@ MonoBehaviour:
   vertical: Vertical1
   fire: Fire1
   speed: .100000001
+  fireTime: 30
   snowball: {fileID: 100000, guid: d0ca499c852dfa846872e79e117b6b21, type: 2}
 --- !u!54 &565752643
 Rigidbody:
@@ -530,6 +531,7 @@ MonoBehaviour:
   vertical: Vertical2
   fire: Fire2
   speed: .100000001
+  fireTime: 30
   snowball: {fileID: 100000, guid: d0ca499c852dfa846872e79e117b6b21, type: 2}
 --- !u!54 &868576052
 Rigidbody:
