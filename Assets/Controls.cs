@@ -6,7 +6,7 @@ public class Controls : MonoBehaviour {
 	public string horizontal = "Horizontal1";
 	public string vertical = "Vertical1";
 	public string fire = "Fire1";
-	public float speed = 0.01f;
+	public float speed = 0.1f;
 	Terrain terrain;
 
 	// Use this for initialization
@@ -18,8 +18,12 @@ public class Controls : MonoBehaviour {
 	void Update () {
 		Vector3 vel = new Vector3(Input.GetAxis(horizontal), 0f, Input.GetAxis(vertical));
 
+		if (vel.magnitude > 1f) {
+			vel /= vel.magnitude;
+		}
+
 		if (vel.magnitude > 0.01f) {
-			vel = vel.normalized * speed;
+			vel *= speed;
 			//Vector3 rot = Quaternion.LookRotation(vel).eulerAngles;
 			transform.rotation = Quaternion.LookRotation(vel);
 			//iTween.RotateTo(gameObject, rot, 0f);
