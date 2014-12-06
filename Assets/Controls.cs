@@ -46,6 +46,10 @@ public class Controls : MonoBehaviour {
 			rigidbody.angularVelocity *= 0.2f;
 		}
 
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			Application.Quit();
+		}
+
 		// Set position based on terrain height
 		/*Vector3 pos = transform.position;
 		pos.y = 0.5f + terrain.SampleHeight(transform.position);
@@ -55,12 +59,10 @@ public class Controls : MonoBehaviour {
 		int mapX = Mathf.FloorToInt(((transform.position.x - terrain.transform.position.x) / terrain.terrainData.size.x) * terrain.terrainData.heightmapWidth);
 		int mapZ = Mathf.FloorToInt(((transform.position.z - terrain.transform.position.z) / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight);
 
-		float[,] heights = terrain.terrainData.GetHeights(mapX, mapZ, 3, 3);
-		heights[1,0] = 0.4f;
-		heights[1,1] = 0.4f;
-		heights[1,2] = 0.4f;
-		heights[0,1] = 0.4f;
-		heights[2,1] = 0.4f;
-		terrain.terrainData.SetHeights(mapX, mapZ, heights);
+		float[,] heights = terrain.terrainData.GetHeights(mapX, mapZ, 1, 1);
+		if (heights[0,0] > 0.5f) {
+			heights[0,0] = 0.4f;
+			terrain.terrainData.SetHeights(mapX, mapZ, heights);
+		}
 	}
 }
