@@ -51,11 +51,12 @@ public class Controls : MonoBehaviour {
 		}
 
 		// Fire
-		if (Input.GetAxis(fire) < 0 && fireTimer == 0) {
+		if (Input.GetAxis(fire) < 0 && fireTimer == 0 && transform.localScale.y > 0.1) {
 			fireTimer = fireTime;
 			GameObject newSnowball = (GameObject)Object.Instantiate(snowball);
 			newSnowball.transform.position = transform.position + transform.forward * 0.5f + new Vector3(0, 1, 0);
 			newSnowball.rigidbody.velocity = 20 * transform.forward + new Vector3(0, 1, 0);
+			transform.localScale -= new Vector3(0.05f, 0.05f, 0.05f);
 		}
 
 		if (Input.GetKeyDown(KeyCode.Escape)) {
@@ -75,6 +76,7 @@ public class Controls : MonoBehaviour {
 		if (heights[0,0] > 0.5f) {
 			heights[0,0] = 0.4f;
 			terrain.terrainData.SetHeights(mapX, mapZ, heights);
+			transform.localScale += new Vector3(0.005f, 0.005f, 0.005f);
 		}
 	}
 }
