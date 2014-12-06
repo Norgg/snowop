@@ -25,6 +25,7 @@ public class SnowFallCollision : MonoBehaviour {
 				float[,] heights = terrain.terrainData.GetHeights(mapX, mapZ, 1, 1);
 				if (heights[0,0] < 0.5f) {
 					heights[0,0] = 0.5f;
+					terrain.terrainData.SetHeights(mapX, mapZ, heights);
 				} else if (heights[0,0] < 0.9f) {
 					heights[0,0] += 0.1f;
 					terrain.terrainData.SetHeights(mapX, mapZ, heights);

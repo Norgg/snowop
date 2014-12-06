@@ -154,6 +154,7 @@ GameObject:
   - 33: {fileID: 94424297}
   - 64: {fileID: 94424296}
   - 23: {fileID: 94424295}
+  - 114: {fileID: 94424299}
   m_Layer: 0
   m_Name: Dirt
   m_TagString: Untagged
@@ -213,6 +214,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!114 &94424299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 94424294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22e70fd475513642b82b3d1e2ec1a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &411319315
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,6 +443,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22e70fd475513642b82b3d1e2ec1a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &564054397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 564054399}
+  - 182: {fileID: 564054398}
+  m_Layer: 0
+  m_Name: WindZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!182 &564054398
+WindZone:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 564054397}
+  m_Enabled: 1
+  m_Mode: 0
+  m_Radius: 20
+  m_WindMain: 1
+  m_WindTurbulence: 500
+  m_WindPulseMagnitude: 100
+  m_WindPulseFrequency: 30
+--- !u!4 &564054399
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 564054397}
+  m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
 --- !u!1 &565752640
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,7 +1515,7 @@ ParticleSystem:
     inWorldSpace: 0
     randomizePerFrame: 0
   ExternalForcesModule:
-    enabled: 0
+    enabled: 1
     multiplier: 1
   ClampVelocityModule:
     enabled: 0
@@ -1782,7 +1835,7 @@ ParticleSystem:
     dampen: 0
     bounce: 0
     energyLossOnCollision: 0
-    minKillSpeed: 10
+    minKillSpeed: 1000
     particleRadius: .00999999978
     collidesWith:
       serializedVersion: 2
