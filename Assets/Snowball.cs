@@ -14,7 +14,7 @@ public class Snowball : MonoBehaviour {
 	
 	}
 
-	void OnCollisionEnter() {
+	void OnCollisionEnter(Collision collision) {
 		Debug.Log("Splat.");
 		int mapX = Mathf.FloorToInt(((transform.position.x - terrain.transform.position.x) / terrain.terrainData.size.x) * terrain.terrainData.heightmapWidth);
 		int mapZ = Mathf.FloorToInt(((transform.position.z - terrain.transform.position.z) / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight);

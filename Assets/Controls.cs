@@ -62,7 +62,7 @@ public class Controls : MonoBehaviour {
 			fireTimer = fireTime;
 			GameObject newSnowball = (GameObject)Object.Instantiate(snowball);
 			newSnowball.transform.localScale = transform.localScale/4;
-			newSnowball.transform.position = transform.position + transform.forward * transform.localScale.y + new Vector3(0, 0.3f, 0);
+			newSnowball.transform.position = transform.position + transform.forward * 0.6f * transform.localScale.y + new Vector3(0, 0.3f, 0) * transform.localScale.y;
 			newSnowball.rigidbody.velocity = fireSpeed * transform.forward + new Vector3(0, 1, 0);
 			transform.localScale -= new Vector3(snowballCost, snowballCost, snowballCost);
 		}
