@@ -6,8 +6,11 @@ public class Controls : MonoBehaviour {
 	public string horizontal;
 	public string vertical;
 	public string fire;
-	public float speed = 0.1f;
-	public int fireTime = 30;
+	public float speed;
+	public float fireSpeed;
+	public int fireTime;
+
+	float gravMult = 5f;
 	float snowballCost = 0.02f;
 	float snowGain = 0.01f;
 	int fireTimer = 0;
@@ -32,8 +35,10 @@ public class Controls : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (fireTimer > 0) fireTimer--;
+
+		rigidbody.AddForce(Physics.gravity * rigidbody.mass * gravMult);
 
 		Vector3 vel = new Vector3(Input.GetAxis(horizontal), 0f, Input.GetAxis(vertical));
 
@@ -53,12 +58,12 @@ public class Controls : MonoBehaviour {
 		}
 
 		// Fire
-		if (Input.GetAxis(fire) < 0 && fireTimer == 0 && transform.localScale.y > 0.1) {
+		if (Input.GetAxis(fire) < 0 && fireTimer == 0 && transform.localScale.y > snowballCost*2) {
 			fireTimer = fireTime;
 			GameObject newSnowball = (GameObject)Object.Instantiate(snowball);
 			newSnowball.transform.localScale = transform.localScale/4;
 			newSnowball.transform.position = transform.position + transform.forward * transform.localScale.y + new Vector3(0, 0.3f, 0);
-			newSnowball.rigidbody.velocity = 20 * transform.forward + new Vector3(0, 1, 0);
+			newSnowball.rigidbody.velocity = fireSpeed * transform.forward + new Vector3(0, 1, 0);
 			transform.localScale -= new Vector3(snowballCost, snowballCost, snowballCost);
 		}
 
@@ -75,9 +80,20 @@ public class Controls : MonoBehaviour {
 		int mapX = Mathf.FloorToInt(((transform.position.x - terrain.transform.position.x) / terrain.terrainData.size.x) * terrain.terrainData.heightmapWidth);
 		int mapZ = Mathf.FloorToInt(((transform.position.z - terrain.transform.position.z) / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight);
 
-		float[,] heights = terrain.terrainData.GetHeights(mapX, mapZ, 1, 1);
-		if (heights[0,0] >= 0.5f) {
-			heights[0,0] = 0.3f;
+		float[,] heights = terrain.terrainData.GetHeights(mapX, mapZ, 3, 3);
+		if (heights[1,1] >= 0.31f) {
+			heights[0,0] -= 0.02f;
+			heights[0,2] -= 0.02f;
+			heights[2,0] -= 0.02f;
+			heights[2,2] -= 0.02f;
+
+			heights[1,0] -= 0.05f;
+			heights[1,2] -= 0.05f;
+			heights[2,1] -= 0.05f;
+			heights[0,1] -= 0.05f;
+
+			heights[1,1] = 0.1f;
+
 			terrain.terrainData.SetHeights(mapX, mapZ, heights);
 			transform.localScale += new Vector3(snowGain, snowGain, snowGain);
 		}
