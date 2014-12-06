@@ -17,14 +17,16 @@ public class Controls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 vel = new Vector3(Input.GetAxis(horizontal), 0f, Input.GetAxis(vertical));
-		vel = vel.normalized * speed;
 
-		if (vel.magnitude > 0f) {
+		if (vel.magnitude > 0.01f) {
+			vel = vel.normalized * speed;
 			//Vector3 rot = Quaternion.LookRotation(vel).eulerAngles;
 			transform.rotation = Quaternion.LookRotation(vel);
 			//iTween.RotateTo(gameObject, rot, 0f);
 
 			transform.position += vel;
+		} else {
+			rigidbody.angularVelocity *= 0.2f;
 		}
 
 		// Set position based on terrain height
