@@ -443,6 +443,7 @@ GameObject:
   - 33: {fileID: 470915385}
   - 135: {fileID: 470915384}
   - 23: {fileID: 470915383}
+  - 54: {fileID: 470915386}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -503,6 +504,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 470915381}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &470915386
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 470915381}
+  serializedVersion: 2
+  m_Mass: 5
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &555599345
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,7 +683,7 @@ MonoBehaviour:
   horizontal: Horizontal1
   vertical: Vertical1
   fire: Fire1
-  speed: 6
+  speed: 7
   fireSpeed: 80
   fireTime: 10
   snowball: {fileID: 100000, guid: d0ca499c852dfa846872e79e117b6b21, type: 2}
@@ -800,7 +816,7 @@ MonoBehaviour:
   horizontal: Horizontal2
   vertical: Vertical2
   fire: Fire2
-  speed: 6
+  speed: 7
   fireSpeed: 80
   fireTime: 10
   snowball: {fileID: 100000, guid: d0ca499c852dfa846872e79e117b6b21, type: 2}
@@ -2499,6 +2515,7 @@ GameObject:
   - 33: {fileID: 1668346151}
   - 135: {fileID: 1668346150}
   - 23: {fileID: 1668346149}
+  - 54: {fileID: 1668346153}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -2559,6 +2576,21 @@ Transform:
   - {fileID: 737490338}
   m_Father: {fileID: 565752641}
   m_RootOrder: 1
+--- !u!54 &1668346153
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1668346148}
+  serializedVersion: 2
+  m_Mass: 5
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1736932056
 GameObject:
   m_ObjectHideFlags: 0

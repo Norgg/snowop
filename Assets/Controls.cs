@@ -10,16 +10,25 @@ public class Controls : MonoBehaviour {
 	public float fireSpeed;
 	public int fireTime;
 
+	bool dead = false;
 	float gravMult = 5f;
 	float snowballCost = 0.02f;
 	float snowGain = 0.01f;
 	int fireTimer = 0;
+
+	int minDeadTime = 60;
+	int deadTimer = 0;
+
 	public GameObject snowball;
 	Terrain terrain;
+	Transform head;
+	Transform holding;
 
 	// Use this for initialization
 	void Start () {
 		terrain = Terrain.activeTerrain;
+		head = transform.Find("Head");
+		head.rigidbody.detectCollisions = false;
 		// Duplicate terrain data so it doesn't mess with the editor version.
 		/*terrain.terrainData = (TerrainData) Object.Instantiate(terrain.terrainData);
 		TerrainCollider tc = Terrain.activeTerrain.gameObject.GetComponent<TerrainCollider>();
@@ -33,12 +42,60 @@ public class Controls : MonoBehaviour {
 		}
 		terrain.terrainData.SetHeights(0, 0, heights);
 	}
-	
+
+	void Die() {
+		dead = true;
+		head.parent = null;
+		head.rigidbody.isKinematic = false;
+		head.rigidbody.detectCollisions = true;
+		rigidbody.constraints = RigidbodyConstraints.None;
+		deadTimer = minDeadTime;
+	}
+
+	void Recover() {
+		dead = false;
+		transform.rotation = Quaternion.identity;
+		head.parent = transform;
+		head.localPosition = new Vector3(0, 0.71f, 0);
+		head.localRotation = Quaternion.identity;
+		head.rigidbody.isKinematic = true;
+		head.rigidbody.detectCollisions = false;
+		rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+	}
+
+	void OnCollisionEnter(Collision collision) {
+		if (dead) {
+			if (collision.transform == head && deadTimer == 0) {
+				Recover();
+			}
+		} else {
+			if (collision.gameObject.name == "Head" && !collision.rigidbody.isKinematic) {
+				holding = collision.transform;
+				holding.rigidbody.isKinematic = true;
+			} else if (collision.gameObject.name.StartsWith("Snowball")) {
+				Die();
+			}
+		}
+	}
+
 	// Update is called once per frame
 	void FixedUpdate () {
-		if (fireTimer > 0) fireTimer--;
-
 		rigidbody.AddForce(Physics.gravity * rigidbody.mass * gravMult);
+		head.rigidbody.AddForce(Physics.gravity * head.rigidbody.mass * gravMult);
+		if (fireTimer > 0) fireTimer--;
+		if (deadTimer > 0) deadTimer--;
+
+		if (dead) {
+		    return;
+		}
+
+		if (holding != null) {
+			if (holding.rigidbody.detectCollisions) {
+				holding.transform.position = transform.position + (transform.forward+ new Vector3(0, 0.5f, 0)) * transform.localScale.y;
+			} else {
+				holding = null;
+			}
+		}
 
 		Vector3 vel = new Vector3(Input.GetAxis(horizontal), 0f, Input.GetAxis(vertical));
 
