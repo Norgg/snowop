@@ -606,10 +606,10 @@ WindZone:
   m_Enabled: 1
   m_Mode: 0
   m_Radius: 20
-  m_WindMain: 1
+  m_WindMain: .100000001
   m_WindTurbulence: 500
-  m_WindPulseMagnitude: 100
-  m_WindPulseFrequency: 30
+  m_WindPulseMagnitude: 5
+  m_WindPulseFrequency: 50
 --- !u!4 &564054399
 Transform:
   m_ObjectHideFlags: 0
@@ -667,7 +667,7 @@ MonoBehaviour:
   horizontal: Horizontal1
   vertical: Vertical1
   fire: Fire1
-  speed: 3
+  speed: 6
   fireSpeed: 80
   fireTime: 10
   snowball: {fileID: 100000, guid: d0ca499c852dfa846872e79e117b6b21, type: 2}
@@ -800,7 +800,7 @@ MonoBehaviour:
   horizontal: Horizontal2
   vertical: Vertical2
   fire: Fire2
-  speed: 3
+  speed: 6
   fireSpeed: 80
   fireTime: 10
   snowball: {fileID: 100000, guid: d0ca499c852dfa846872e79e117b6b21, type: 2}
@@ -954,7 +954,7 @@ ParticleSystem:
   InitialModule:
     enabled: 1
     startLifetime:
-      scalar: 10
+      scalar: 100
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -987,7 +987,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 0
     startSpeed:
-      scalar: 5
+      scalar: 8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1179,9 +1179,9 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    gravityModifier: 1
+    gravityModifier: 0
     inheritVelocity: 0
-    maxNumParticles: 10000
+    maxNumParticles: 100
   ShapeModule:
     serializedVersion: 2
     enabled: 1
@@ -1978,7 +1978,7 @@ ParticleSystem:
     collidesWith:
       serializedVersion: 2
       m_Bits: 4294967295
-    quality: 1
+    quality: 0
     voxelSize: .5
     collisionMessages: 1
   SubModule:

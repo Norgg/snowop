@@ -47,13 +47,13 @@ public class Controls : MonoBehaviour {
 		}
 
 		vel /= Mathf.Pow(transform.localScale.y, 2);
+		float currentSpeed = speed - transform.localScale.y;
+		if (speed < 0)  speed = 0;
+
+		vel *= currentSpeed;
 
 		if (vel.magnitude > 0.01f) {
-			vel *= speed;
-			//Vector3 rot = Quaternion.LookRotation(vel).eulerAngles;
 			transform.rotation = Quaternion.LookRotation(vel);
-			//iTween.RotateTo(gameObject, rot, 0f);
-
 			transform.position += vel;
 		} else {
 			rigidbody.angularVelocity *= 0.2f;
