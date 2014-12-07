@@ -18,18 +18,26 @@ public class IglooBuilder : MonoBehaviour {
 		spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
 
 		foreach (Transform child in transform) {
-			if (child.gameObject.name.StartsWith("IceCube")) {
+			/*if (child.gameObject.name.StartsWith("IceCube")) {
 				child.rigidbody.isKinematic = false;
 				float dir = Mathf.PI * 2 * Random.value;
 				float dist = 30 + 10 * Random.value;
 				Vector3 offset = new Vector3(1.5f * Mathf.Sin(dir) * dist, 0, Mathf.Cos(dir) * dist);
 				child.rigidbody.position += offset;
-			}
+			}*/
+		}
+	}
+
+	void OnGUI() {
+		if (won) {
+			GUIStyle style = new GUIStyle();
+			style.normal.textColor = Color.black;
+			GUI.Label(new Rect(Screen.width/2 - 20, Screen.height/2 + 30, 100, 30), "Escaped.", style);
 		}
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update() {
 		if (transform.childCount == startChildren) {
 			iglooComplete = true;
 		} else {
