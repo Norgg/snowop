@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour {
 
 	AudioSource calmsong;
 	AudioSource excitesong;
+	AudioSource rocket;
 	bool firstSpawn = true;
 
 	void Start () {
@@ -23,6 +24,14 @@ public class Spawner : MonoBehaviour {
 		rightWall.transform.position = new Vector3(right, 25, 0);
 		calmsong = GetComponents<AudioSource>()[0];
 		excitesong = GetComponents<AudioSource>()[1];
+		rocket = GetComponents<AudioSource>()[2];
+		calmsong.Play();
+	}
+
+	public void Win() {
+		calmsong.Stop();
+		excitesong.Stop();
+		rocket.Play();
 	}
 	
 	void FixedUpdate () {

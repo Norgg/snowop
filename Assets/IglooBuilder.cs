@@ -9,11 +9,13 @@ public class IglooBuilder : MonoBehaviour {
 	bool won = false;
 	int wonTimer = 30;
 	GameObject jet;
+	Spawner spawner;
 
 	void Start() {
 		// Explode igloo.
 		startChildren = transform.childCount;
 		jet = GameObject.Find("Jet");
+		spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
 
 		foreach (Transform child in transform) {
 			if (child.gameObject.name.StartsWith("IceCube")) {
@@ -21,7 +23,7 @@ public class IglooBuilder : MonoBehaviour {
 				float dir = Mathf.PI * 2 * Random.value;
 				float dist = 30 + 10 * Random.value;
 				Vector3 offset = new Vector3(1.5f * Mathf.Sin(dir) * dist, 0, Mathf.Cos(dir) * dist);
-				child.rigidbody.position += offset;
+				//child.rigidbody.position += offset;
 			}
 		}
 	}
@@ -38,6 +40,7 @@ public class IglooBuilder : MonoBehaviour {
 			won = true;
 			jet.particleSystem.Play();
 			Camera.allCameras[0].transform.position -= Camera.allCameras[0].transform.forward * 50;
+			spawner.Win();
 		}
 
 		if (won) {
