@@ -35,6 +35,7 @@ public class IceCube : MonoBehaviour {
 	void OnTriggerEnter(Collider collider) {
 		if (transform.parent == startParent) return;
 		if (startTimer == 0 && collider.gameObject.name == "Base") {
+			audio.Play();
 			if (p1c.holding == transform) p1c.holding = null;
 			if (p2c.holding == transform) p2c.holding = null;
 			rigidbody.isKinematic = true;
