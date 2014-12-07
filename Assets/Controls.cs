@@ -51,6 +51,8 @@ public class Controls : MonoBehaviour {
 		rigidbody.constraints = RigidbodyConstraints.None;
 		deadTimer = minDeadTime;
 		head.rigidbody.AddExplosionForce(5000f, transform.position, 50f);
+		holding.rigidbody.isKinematic = false;
+		holding = null;
 	}
 
 	void Recover() {
@@ -108,8 +110,7 @@ public class Controls : MonoBehaviour {
 			vel /= vel.magnitude;
 		}
 
-		vel /= Mathf.Pow(transform.localScale.y, 2);
-		float currentSpeed = speed;// - transform.localScale.y;
+		float currentSpeed = speed - transform.localScale.y;
 		if (speed < 0)  speed = 0;
 
 		vel *= currentSpeed;
