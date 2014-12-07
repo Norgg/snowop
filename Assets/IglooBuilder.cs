@@ -23,7 +23,7 @@ public class IglooBuilder : MonoBehaviour {
 				float dir = Mathf.PI * 2 * Random.value;
 				float dist = 30 + 10 * Random.value;
 				Vector3 offset = new Vector3(1.5f * Mathf.Sin(dir) * dist, 0, Mathf.Cos(dir) * dist);
-				//child.rigidbody.position += offset;
+				child.rigidbody.position += offset;
 			}
 		}
 	}
