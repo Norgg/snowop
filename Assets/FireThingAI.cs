@@ -35,6 +35,7 @@ public class FireThingAI : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
+		renderer.material.mainTextureOffset += new Vector2(Random.value/100f, Random.value/100f);
 		rigidbody.angularVelocity = new Vector3(0, 25, 0);
 
 		Vector3 pos = transform.position;
