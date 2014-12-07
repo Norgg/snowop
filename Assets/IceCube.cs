@@ -6,6 +6,7 @@ public class IceCube : MonoBehaviour {
 	Quaternion startingRotation;
 	int startTimer = 60;
 	Spawner spawner;
+	float spawnChancePerBlock = 0.001f;
 
 	// Use this for initialization
 	void Start () {
@@ -20,7 +21,7 @@ public class IceCube : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider collider) {
-		spawner.fireThingSpawnChance += 0.002f;
+		spawner.fireThingSpawnChance += spawnChancePerBlock;
 		if (startTimer == 0 && collider.gameObject.name == "Base") {
 			rigidbody.isKinematic = true;
 			transform.position = startingPos;

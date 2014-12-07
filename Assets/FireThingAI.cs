@@ -7,7 +7,9 @@ public class FireThingAI : MonoBehaviour {
 	GameObject p2;
 	Controls p1c;
 	Controls p2c;
-	float speed = 0.2f;
+	float speed = 0.1f;
+	float maxSpeed = 8f;
+	int hp = 3;
 
 	// Use this for initialization
 	void Start () {
@@ -20,7 +22,12 @@ public class FireThingAI : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision) {
 		if (collision.gameObject.name.StartsWith("Snowball")) {
-			Destroy(gameObject);
+			hp--;
+			if (hp == 0) {
+				Destroy(gameObject);
+			} else {
+				transform.localScale *= 0.8f;
+			}
 		}
 	}
 
@@ -56,9 +63,16 @@ public class FireThingAI : MonoBehaviour {
 		}
 
 		if (p2c.dead || Vector3.Distance(transform.position, p1.transform.position) < Vector3.Distance(transform.position, p2.transform.position)){
-			if (!p1c.dead) rigidbody.velocity += (p1.transform.position - transform.position).normalized * speed;
+			if (!p1c.dead) MoveTowards(p1);
 		} else {
-			rigidbody.velocity += (p2.transform.position - transform.position).normalized * speed;
+			MoveTowards(p2);
+		}
+	}
+
+	void MoveTowards(GameObject player) {
+		rigidbody.velocity += (player.transform.position - transform.position).normalized * speed;
+		if (rigidbody.velocity.magnitude > maxSpeed) {
+			rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
 		}
 	}
 }

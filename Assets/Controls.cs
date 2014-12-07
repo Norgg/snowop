@@ -107,7 +107,7 @@ public class Controls : MonoBehaviour {
 		}
 
 		vel /= Mathf.Pow(transform.localScale.y, 2);
-		float currentSpeed = speed - transform.localScale.y;
+		float currentSpeed = speed;// - transform.localScale.y;
 		if (speed < 0)  speed = 0;
 
 		vel *= currentSpeed;
