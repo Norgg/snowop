@@ -39,7 +39,8 @@ public class IceCube : MonoBehaviour {
 			if (p1c.holding == transform) p1c.holding = null;
 			if (p2c.holding == transform) p2c.holding = null;
 			rigidbody.isKinematic = true;
-			transform.position = startingPos;
+			iTween.MoveTo(gameObject, startingPos, 0.3f);
+			iTween.RotateTo(gameObject, startingRotation.eulerAngles, 0.3f);
 			transform.rotation = startingRotation;
 			transform.parent = startParent;
 			spawner.fireThingSpawnChance += spawnChancePerBlock;
