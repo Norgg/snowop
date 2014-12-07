@@ -10,6 +10,7 @@ public class FireThingAI : MonoBehaviour {
 	float speed = 0.1f;
 	float maxSpeed = 8f;
 	int hp = 3;
+	float pulsecounter = 0f;
 
 	// Use this for initialization
 	void Start () {
@@ -43,7 +44,11 @@ public class FireThingAI : MonoBehaviour {
 		// Remove snow from terrain.
 		int mapX = Mathf.FloorToInt(((transform.position.x - terrain.transform.position.x) / terrain.terrainData.size.x) * terrain.terrainData.heightmapWidth) - 1;
 		int mapZ = Mathf.FloorToInt(((transform.position.z - terrain.transform.position.z) / terrain.terrainData.size.z) * terrain.terrainData.heightmapHeight) - 1;
-		
+
+		pulsecounter+=0.1f;
+		float pulsescale = hp * Mathf.Sin(pulsecounter) / 30f;
+		transform.localScale += new Vector3(pulsescale, 0, pulsescale);
+
 		if (mapX >= 0 && mapX < terrain.terrainData.heightmapWidth-2 && mapZ >= 0 && mapZ < terrain.terrainData.heightmapHeight-2) {
 			float[,] heights = terrain.terrainData.GetHeights(mapX, mapZ, 3, 3);
 			if (heights[1,1] >= 0.31f) {
