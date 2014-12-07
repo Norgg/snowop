@@ -26,6 +26,7 @@ public class FireThingAI : MonoBehaviour {
 			if (hp == 0) {
 				Destroy(gameObject);
 			} else {
+				audio.Play();
 				transform.localScale *= 0.8f;
 			}
 		}

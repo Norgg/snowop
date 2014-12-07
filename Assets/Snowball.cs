@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Snowball : MonoBehaviour {
 	Terrain terrain;
+	int destroyTimer = 30;
+	bool broken = false;
 
 	// Use this for initialization
 	void Start () {
@@ -10,10 +12,25 @@ public class Snowball : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (broken) {
+			destroyTimer--;
+			if (destroyTimer == 0) {
+				Destroy(gameObject);
+			}
+		}
+	}
+
+	void Break() {
+		broken = true;
+		renderer.enabled = false;
+		rigidbody.detectCollisions = false;
+		rigidbody.isKinematic = true;
+		particleSystem.Play();
 	}
 
 	void OnCollisionEnter(Collision collision) {
+		if (broken) return;
+
 		if (terrain == null) {
 			terrain = Terrain.activeTerrain;
 		}
@@ -26,7 +43,11 @@ public class Snowball : MonoBehaviour {
 				terrain.terrainData.SetHeights(mapX, mapZ, heights);
 			}
 		}
+		
+		if (collision.gameObject.name != "FireThing") {
+			audio.Play();
+		}
 
-		Destroy(gameObject);
+		Break();
 	}
 }

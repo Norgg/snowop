@@ -1155,7 +1155,7 @@ GameObject:
   - 154: {fileID: 555599346}
   - 114: {fileID: 555599349}
   m_Layer: 0
-  m_Name: Terrain
+  m_Name: Snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
