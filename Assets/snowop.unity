@@ -1307,7 +1307,7 @@ MonoBehaviour:
   horizontal: Horizontal1
   vertical: Vertical1
   fire: Fire1
-  speed: .699999988
+  speed: .600000024
   fireSpeed: 80
   fireTime: 10
   dead: 0
@@ -1442,7 +1442,7 @@ MonoBehaviour:
   horizontal: Horizontal2
   vertical: Vertical2
   fire: Fire2
-  speed: .699999988
+  speed: .600000024
   fireSpeed: 80
   fireTime: 10
   dead: 0
