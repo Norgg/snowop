@@ -11,7 +11,7 @@ public class Controls : MonoBehaviour {
 	public int fireTime;
 
 	public bool dead = false;
-	float gravMult = 5f;
+	float gravMult = 10f;
 	float snowballCost = 0.02f;
 	float snowGain = 0.005f;
 	int fireTimer = 0;

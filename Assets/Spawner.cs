@@ -4,17 +4,9 @@ using System.Collections;
 public class Spawner : MonoBehaviour {
 	public GameObject fireThing;
 	public float fireThingSpawnChance;
-	GameObject p1;
-	GameObject p2;
-	Controls p1c;
-	Controls p2c;
 
 	// Use this for initialization
 	void Start () {
-		p1 = GameObject.Find("Snowman1");
-		p2 = GameObject.Find("Snowman2");
-		p1c = p1.GetComponent<Controls>();
-		p2c = p2.GetComponent<Controls>();
 	}
 	
 	// Update is called once per frame

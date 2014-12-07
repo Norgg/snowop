@@ -48,6 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\Controls.cs" />
      <Compile Include="Assets\FireThingAI.cs" />
+     <Compile Include="Assets\IceCube.cs" />
+     <Compile Include="Assets\IglooBuilder.cs" />
      <Compile Include="Assets\SnowFallCollision.cs" />
      <Compile Include="Assets\Snowball.cs" />
      <Compile Include="Assets\Spawner.cs" />
