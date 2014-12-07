@@ -26,7 +26,7 @@ public class FireThingAI : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		transform.Rotate(new Vector3(0, 25, 0));
+		rigidbody.angularVelocity = new Vector3(0, 25, 0);
 
 		Vector3 pos = transform.position;
 		pos.y = 2f + terrain.SampleHeight(transform.position);

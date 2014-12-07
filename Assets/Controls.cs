@@ -50,6 +50,7 @@ public class Controls : MonoBehaviour {
 		head.rigidbody.detectCollisions = true;
 		rigidbody.constraints = RigidbodyConstraints.None;
 		deadTimer = minDeadTime;
+		head.rigidbody.AddExplosionForce(5000f, transform.position, 50f);
 	}
 
 	void Recover() {
