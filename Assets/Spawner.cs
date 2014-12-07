@@ -28,6 +28,9 @@ public class Spawner : MonoBehaviour {
 	void FixedUpdate () {
 		if (Input.GetKeyDown(KeyCode.R)) {
 			Application.LoadLevel(0);
+		} else if (Input.GetKeyDown(KeyCode.M)) {
+			calmsong.mute = !calmsong.mute;
+			excitesong.mute = !excitesong.mute;
 		}
 
 		if (Random.value < fireThingSpawnChance && transform.childCount < maxEnemies) {
@@ -35,8 +38,14 @@ public class Spawner : MonoBehaviour {
 			newThing.transform.parent = transform;
 			if (firstSpawn) {
 				firstSpawn = false;
-				calmsong.Stop();
-				excitesong.Play();
+				Hashtable args = new Hashtable();
+				args["audiosource"] = calmsong;
+				args["volume"] = 0.0;
+				args["time"] = 0.5;
+				iTween.AudioTo(gameObject, args);
+				args["audiosource"] = excitesong;
+				args["volume"] = 1.0;
+				iTween.AudioTo(gameObject, args);
 			}
 			int dir = Mathf.FloorToInt(Random.value * 4);
 			switch(dir) {
