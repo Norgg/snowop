@@ -10,6 +10,10 @@ public class Spawner : MonoBehaviour {
 	float left;
 	float right;
 
+	AudioSource calmsong;
+	AudioSource excitesong;
+	bool firstSpawn = true;
+
 	void Start () {
 		GameObject leftWall = GameObject.Find("LeftWall");
 		GameObject rightWall = GameObject.Find("RightWall");
@@ -17,6 +21,8 @@ public class Spawner : MonoBehaviour {
 		right = 41 * Screen.width / Screen.height;
 		leftWall.transform.position = new Vector3(left, 25, 0);
 		rightWall.transform.position = new Vector3(right, 25, 0);
+		calmsong = GetComponents<AudioSource>()[0];
+		excitesong = GetComponents<AudioSource>()[1];
 	}
 	
 	void FixedUpdate () {
@@ -27,6 +33,11 @@ public class Spawner : MonoBehaviour {
 		if (Random.value < fireThingSpawnChance && transform.childCount < maxEnemies) {
 			GameObject newThing = (GameObject)Instantiate(fireThing);
 			newThing.transform.parent = transform;
+			if (firstSpawn) {
+				firstSpawn = false;
+				calmsong.Stop();
+				excitesong.Play();
+			}
 			int dir = Mathf.FloorToInt(Random.value * 4);
 			switch(dir) {
 			case 0:
