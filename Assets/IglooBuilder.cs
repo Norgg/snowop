@@ -2,8 +2,18 @@
 using System.Collections;
 
 public class IglooBuilder : MonoBehaviour {
-	void Start () {
+	public bool iglooComplete = false;
+	int startChildren;
+	public bool p1Home = false;
+	public bool p2Home = false;
+	bool won = false;
+	GameObject jet;
+
+	void Start() {
 		// Explode igloo.
+		startChildren = transform.childCount;
+		jet = GameObject.Find("Jet");
+
 		foreach (Transform child in transform) {
 			if (child.gameObject.name.StartsWith("IceCube")) {
 				child.rigidbody.isKinematic = false;
@@ -17,6 +27,21 @@ public class IglooBuilder : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (transform.childCount == startChildren) {
+			iglooComplete = true;
+		} else {
+			iglooComplete = false;
+		}
+
+		if (p1Home && p2Home && iglooComplete) {
+			won = true;
+			jet.particleSystem.Play();
+		}
+
+		if (won) {
+			transform.position += new Vector3(0, 0.3f, 0);
+		}
+		p1Home = false;
+		p2Home = false;
 	}
 }

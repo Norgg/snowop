@@ -12,8 +12,8 @@ public class Controls : MonoBehaviour {
 
 	public bool dead = false;
 	float gravMult = 10f;
-	float snowballCost = 0.02f;
-	float snowGain = 0.005f;
+	float snowballCost = 0.05f;
+	float snowGain = 0.02f;
 	int fireTimer = 0;
 
 	int minDeadTime = 60;
@@ -24,8 +24,11 @@ public class Controls : MonoBehaviour {
 	Transform head;
 	public Transform holding;
 
+	IglooBuilder iglooBuilder;
+
 	// Use this for initialization
 	void Start () {
+		iglooBuilder = GameObject.Find("Igloo").GetComponent<IglooBuilder>();
 		terrain = Terrain.activeTerrain;
 		head = transform.Find("Head");
 		head.rigidbody.detectCollisions = false;
@@ -66,6 +69,16 @@ public class Controls : MonoBehaviour {
 		rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 	}
 
+	void OnTriggerStay(Collider collider) {
+		if (collider.gameObject.name == "Base") {
+			if (gameObject.name.Contains("1")) {
+				iglooBuilder.p1Home = true;
+			} else {
+				iglooBuilder.p2Home = true;
+			}
+		}
+	}
+			
 	void OnCollisionEnter(Collision collision) {
 		if (dead) {
 			if (collision.transform == head && deadTimer == 0) {
@@ -107,10 +120,10 @@ public class Controls : MonoBehaviour {
 		Vector3 vel = new Vector3(Input.GetAxis(horizontal), 0f, Input.GetAxis(vertical));
 
 		if (vel.magnitude > 1f) {
-			vel /= vel.magnitude;
+			vel = vel.normalized;
 		}
 
-		float currentSpeed = speed - transform.localScale.y;
+		float currentSpeed = speed - transform.localScale.y / 2f;
 		if (speed < 0)  speed = 0;
 
 		vel *= currentSpeed;
@@ -123,7 +136,7 @@ public class Controls : MonoBehaviour {
 		}
 
 		// Fire
-		if (Input.GetAxis(fire) < 0 && fireTimer == 0 && transform.localScale.y > 1.5f) {
+		if (Input.GetAxis(fire) < 0 && fireTimer == 0 && transform.localScale.y > 2f) {
 			fireTimer = fireTime;
 
 			if (holding != null) {
