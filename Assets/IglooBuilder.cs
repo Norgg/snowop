@@ -7,6 +7,7 @@ public class IglooBuilder : MonoBehaviour {
 	public bool p1Home = false;
 	public bool p2Home = false;
 	bool won = false;
+	int wonTimer = 30;
 	GameObject jet;
 
 	void Start() {
@@ -33,13 +34,15 @@ public class IglooBuilder : MonoBehaviour {
 			iglooComplete = false;
 		}
 
-		if (p1Home && p2Home && iglooComplete) {
+		if (p1Home && p2Home && iglooComplete && !won) {
 			won = true;
 			jet.particleSystem.Play();
+			Camera.allCameras[0].transform.position -= Camera.allCameras[0].transform.forward * 50;
 		}
 
 		if (won) {
-			transform.position += new Vector3(0, 0.3f, 0);
+			if (wonTimer > 0) wonTimer--;
+			else transform.position += new Vector3(0, 0.3f, 0);
 		}
 		p1Home = false;
 		p2Home = false;
