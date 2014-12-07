@@ -3,13 +3,11 @@ using System.Collections;
 
 public class Spawner : MonoBehaviour {
 	public GameObject fireThing;
-	public float fireThingSpawnChance;
+	public float fireThingSpawnChance = 0f;
 
-	// Use this for initialization
 	void Start () {
 	}
 	
-	// Update is called once per frame
 	void FixedUpdate () {
 		if (Input.GetKeyDown(KeyCode.R)) {
 			Application.LoadLevel(0);
