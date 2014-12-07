@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Spawner : MonoBehaviour {
 	public GameObject fireThing;
+
+	int maxEnemies = 20;
 	public float fireThingSpawnChance = 0f;
 
 	void Start () {
@@ -13,8 +15,9 @@ public class Spawner : MonoBehaviour {
 			Application.LoadLevel(0);
 		}
 
-		if (Random.value < fireThingSpawnChance) {
+		if (Random.value < fireThingSpawnChance && transform.childCount < maxEnemies) {
 			GameObject newThing = (GameObject)Instantiate(fireThing);
+			newThing.transform.parent = transform;
 			int dir = Mathf.FloorToInt(Random.value * 4);
 			switch(dir) {
 			case 0:

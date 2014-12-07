@@ -22,7 +22,7 @@ public class Controls : MonoBehaviour {
 	public GameObject snowball;
 	Terrain terrain;
 	Transform head;
-	Transform holding;
+	public Transform holding;
 
 	// Use this for initialization
 	void Start () {
@@ -70,7 +70,8 @@ public class Controls : MonoBehaviour {
 				Recover();
 			}
 		} else {
-			if (collision.gameObject.name == "Head" && !collision.rigidbody.isKinematic) {
+
+			if (holding == null && (collision.gameObject.name == "Head" || collision.gameObject.name == "IceCube") && !collision.rigidbody.isKinematic) {
 				holding = collision.transform;
 				holding.rigidbody.isKinematic = true;
 			} else if (collision.gameObject.name.StartsWith("Snowball")) {
@@ -94,7 +95,8 @@ public class Controls : MonoBehaviour {
 
 		if (holding != null) {
 			if (holding.rigidbody.detectCollisions) {
-				holding.transform.position = transform.position + (transform.forward+ new Vector3(0, 0.5f, 0)) * transform.localScale.y;
+				holding.transform.position = transform.position + (transform.forward + new Vector3(0, 0.3f, 0)) * (transform.localScale.z + holding.transform.localScale.z);
+				holding.transform.rotation = transform.rotation;
 			} else {
 				holding = null;
 			}
