@@ -12,8 +12,8 @@ public class Controls : MonoBehaviour {
 
 	public bool dead = false;
 	float gravMult = 10f;
-	float snowballCost = 0.05f;
-	float snowGain = 0.02f;
+	float snowballCost = 0.04f;
+	float snowGain = 0.005f;
 	int fireTimer = 0;
 
 	int minDeadTime = 60;
@@ -54,8 +54,10 @@ public class Controls : MonoBehaviour {
 		rigidbody.constraints = RigidbodyConstraints.None;
 		deadTimer = minDeadTime;
 		head.rigidbody.AddExplosionForce(5000f, transform.position, 50f);
-		holding.rigidbody.isKinematic = false;
-		holding = null;
+		if (holding != null) {
+			holding.rigidbody.isKinematic = false;
+			holding = null;
+		}
 	}
 
 	void Recover() {
@@ -73,8 +75,14 @@ public class Controls : MonoBehaviour {
 		if (collider.gameObject.name == "Base") {
 			if (gameObject.name.Contains("1")) {
 				iglooBuilder.p1Home = true;
+				if (holding != null && holding.gameObject.name == "Head") {
+					iglooBuilder.p2Home = true;
+				}
 			} else {
 				iglooBuilder.p2Home = true;
+				if (holding != null && holding.gameObject.name == "Head") {
+					iglooBuilder.p1Home = true;
+				}
 			}
 		}
 	}
@@ -123,7 +131,7 @@ public class Controls : MonoBehaviour {
 			vel = vel.normalized;
 		}
 
-		float currentSpeed = speed - transform.localScale.y / 2f;
+		float currentSpeed = speed; // - transform.localScale.y / 4f;
 		if (speed < 0)  speed = 0;
 
 		vel *= currentSpeed;
