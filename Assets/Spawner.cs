@@ -8,6 +8,10 @@ public class Spawner : MonoBehaviour {
 	public float fireThingSpawnChance = 0f;
 
 	void Start () {
+		GameObject leftWall = GameObject.Find("LeftWall");
+		GameObject rightWall = GameObject.Find("RightWall");
+		leftWall.transform.position = new Vector3(-41 * Screen.width / Screen.height, 25, 0);
+		rightWall.transform.position = new Vector3(41 * Screen.width / Screen.height, 25, 0);
 	}
 	
 	void FixedUpdate () {
