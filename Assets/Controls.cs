@@ -10,10 +10,10 @@ public class Controls : MonoBehaviour {
 	public float fireSpeed;
 	public int fireTime;
 
-	bool dead = false;
+	public bool dead = false;
 	float gravMult = 5f;
 	float snowballCost = 0.02f;
-	float snowGain = 0.01f;
+	float snowGain = 0.005f;
 	int fireTimer = 0;
 
 	int minDeadTime = 60;
@@ -73,6 +73,8 @@ public class Controls : MonoBehaviour {
 				holding = collision.transform;
 				holding.rigidbody.isKinematic = true;
 			} else if (collision.gameObject.name.StartsWith("Snowball")) {
+				Die();
+			} else if (collision.gameObject.name.StartsWith("FireThing")) {
 				Die();
 			}
 		}
