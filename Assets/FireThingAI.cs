@@ -30,6 +30,8 @@ public class FireThingAI : MonoBehaviour {
 				audio.Play();
 				transform.localScale *= 0.8f;
 			}
+		} else if (collision.gameObject.name.StartsWith("Snowman")) {
+			Destroy(gameObject);
 		}
 	}
 
